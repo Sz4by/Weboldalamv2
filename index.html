@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Christmas Profile</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome az ikonokhoz -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Ünnepi és modern betűtípusok -->
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Egyedi animációk és stílusok */
+        :root {
+            --gold: #FFD700;
+            --dark-green: #1a472a;
+            --holiday-red: #c41e3a;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, .festive-font {
+            font-family: 'Mountains of Christmas', cursive;
+        }
+
+        /* Hóesés animáció */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: #fff;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            text-shadow: 0 0 5px #000;
+            user-select: none;
+            z-index: -1; /* A tartalom mögött, de a videó előtt */
+            animation-name: snowflakes-fall, snowflakes-shake;
+            animation-duration: 10s, 3s;
+            animation-timing-function: linear, ease-in-out;
+            animation-iteration-count: infinite, infinite;
+            animation-play-state: running, running;
+        }
+
+        @keyframes snowflakes-fall {
+            0% { top: -10%; }
+            100% { top: 100%; }
+        }
+
+        @keyframes snowflakes-shake {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(80px); }
+        }
+
+        /* Hópelyhek pozicionálása */
+        .snowflake:nth-of-type(0) { left: 1%; animation-delay: 0s, 0s; }
+        .snowflake:nth-of-type(1) { left: 10%; animation-delay: 1s, 1s; }
+        .snowflake:nth-of-type(2) { left: 20%; animation-delay: 6s, .5s; }
+        .snowflake:nth-of-type(3) { left: 30%; animation-delay: 4s, 2s; }
+        .snowflake:nth-of-type(4) { left: 40%; animation-delay: 2s, 2s; }
+        .snowflake:nth-of-type(5) { left: 50%; animation-delay: 8s, 3s; }
+        .snowflake:nth-of-type(6) { left: 60%; animation-delay: 6s, 2s; }
+        .snowflake:nth-of-type(7) { left: 70%; animation-delay: 2.5s, 1s; }
+        .snowflake:nth-of-type(8) { left: 80%; animation-delay: 1s, 0s; }
+        .snowflake:nth-of-type(9) { left: 90%; animation-delay: 3s, 1.5s; }
+        .snowflake:nth-of-type(10) { left: 25%; animation-delay: 2s, 0s; }
+        .snowflake:nth-of-type(11) { left: 65%; animation-delay: 4s, 2.5s; }
+
+        /* Glassmorphism kártya */
+        .glass-card {
+            background: rgba(20, 20, 30, 0.65); /* Sötét, félig átlátszó */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Csúszka (Range input) stílus */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            margin-top: -6px; 
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+        }
+
+        /* Discord status indicator színek */
+        .status-online { background-color: #3ba55c; }
+        .status-idle { background-color: #faa61a; }
+        .status-dnd { background-color: #ed4245; }
+        .status-offline { background-color: #747f8d; }
+
+        /* Egyedi scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--holiday-red);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen flex items-center justify-center p-4 relative">
+
+    <!-- Háttér Videó -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-20">
+        <video autoplay muted loop playsinline class="absolute min-w-full min-h-full object-cover filter blur-sm brightness-50 transform scale-105">
+            <source src="https://videos.pexels.com/video-files/856957/856957-hd_1920_1080_25fps.mp4" type="video/mp4">
+            A böngésződ nem támogatja a videó taget.
+        </video>
+    </div>
+
+    <!-- Hóesés effektek -->
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+    </div>
+
+    <!-- Fő Konténer (Glassmorphism) -->
+    <main class="glass-card w-full max-w-4xl rounded-3xl overflow-hidden relative z-10 animate-fade-in-up">
+        
+        <!-- Ünnepi díszítés a sarokban -->
+        <div class="absolute top-0 right-0 p-4 text-yellow-400 opacity-80">
+            <i class="fa-solid fa-holly-berry text-4xl transform rotate-12"></i>
+        </div>
+        <div class="absolute top-0 left-0 p-4 text-yellow-400 opacity-80">
+            <i class="fa-solid fa-sleigh text-3xl transform -rotate-12"></i>
+        </div>
+
+        <div class="grid md:grid-cols-12 gap-0">
+            
+            <!-- Bal oldali sáv (Profil & Infó) -->
+            <div class="md:col-span-5 bg-black/20 p-8 text-center flex flex-col items-center justify-center border-r border-white/10">
+                
+                <!-- Profilkép -->
+                <div class="relative group">
+                    <div class="w-40 h-40 rounded-full border-4 border-red-600 p-1 shadow-2xl overflow-hidden transition-transform transform group-hover:scale-105">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Profilkép" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <!-- Mikulás sapka ikon a képen -->
+                    <div class="absolute -top-6 -right-4 text-red-600 text-6xl drop-shadow-lg transform rotate-12">
+                        <i class="fa-solid fa-hat-santa"></i>
+                    </div>
+                </div>
+
+                <!-- Név és Bemutatkozás -->
+                <h1 class="text-4xl mt-6 mb-2 text-yellow-400 drop-shadow-md">Kovács Dávid</h1>
+                <p class="text-gray-300 italic text-sm mb-4">"Programozó, gamer és a forró csoki nagy kedvelője."</p>
+                
+                <div class="text-gray-200 text-sm leading-relaxed mb-6">
+                    Szia! Üdvözöllek a személyes oldalamon. Imádom a téli szezont, a webfejlesztést és a jó zenéket. Ha nem kódolok, akkor valószínűleg a hegyekben túrázom vagy Discordon lógok a barátaimmal.
+                </div>
+
+                <!-- Közösségi Média Ikonok -->
+                <div class="flex gap-4 mt-auto">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all duration-300 transform hover:-translate-y-1">
+                        <i class="fa-brands fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:-translate-y-1">
+                        <i class="fa-brands fa-facebook-f text-xl"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-sky-500 hover:text-white transition-all duration-300 transform hover:-translate-y-1">
+                        <i class="fa-brands fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300 transform hover:-translate-y-1">
+                        <i class="fa-brands fa-github text-xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Jobb oldali sáv (Tartalom) -->
+            <div class="md:col-span-7 p-8 flex flex-col gap-6">
+                
+                <!-- Discord Szekció -->
+                <div class="bg-[#2f3136] rounded-lg p-4 border border-gray-700 shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-[#202225]"></div>
+                    <h3 class="text-[#b9bbbe] text-xs font-bold uppercase mb-3 tracking-widest"><i class="fa-brands fa-discord mr-2"></i>Discord Profil</h3>
+                    
+                    <div class="flex items-center gap-4">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full border-2 border-[#2f3136]">
+                            <!-- Státusz jelző (DND - Piros) -->
+                            <div class="absolute bottom-0 right-0 w-4 h-4 rounded-full status-dnd border-2 border-[#2f3136]" title="Ne zavarjanak"></div>
+                        </div>
+                        <div>
+                            <div class="text-white font-bold text-lg">DaveCode <span class="text-gray-400 font-normal text-sm">#8294</span></div>
+                            <div class="text-gray-300 text-xs mt-1 flex items-center gap-1">
+                                <i class="fa-solid fa-gamepad text-purple-400"></i>
+                                <span>Playing <strong>VS Code</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Custom Status -->
+                    <div class="mt-3 bg-[#202225] rounded p-2 flex items-center gap-2 border border-gray-700">
+                        <span class="text-lg">🎄</span>
+                        <span class="text-sm text-gray-300">Várom a karácsonyt...</span>
+                    </div>
+                </div>
+
+                <!-- Képgaléria (ÚJ) -->
+                <div>
+                    <h3 class="festive-font text-2xl text-yellow-400 mb-4 border-b border-white/10 pb-2">Galéria</h3>
+                    <div class="grid grid-cols-3 gap-3">
+                        
+                        <!-- 1. Kép: Gaming Setup / Tech -->
+                        <div class="aspect-square rounded-lg overflow-hidden border border-white/20 cursor-pointer group relative">
+                            <img src="https://images.unsplash.com/photo-1593305841991-05c29736560e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" 
+                                 alt="Gaming Setup">
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                                <span class="text-white text-xs font-bold"><i class="fa-solid fa-desktop"></i> Setup</span>
+                            </div>
+                        </div>
+
+                        <!-- 2. Kép: Téli hangulat / Forró csoki -->
+                        <div class="aspect-square rounded-lg overflow-hidden border border-white/20 cursor-pointer group relative">
+                            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" 
+                                 alt="Téli hangulat">
+                             <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                                <span class="text-white text-xs font-bold"><i class="fa-solid fa-mug-hot"></i> Chill</span>
+                            </div>
+                        </div>
+
+                        <!-- 3. Kép: Kódolás / Munka -->
+                        <div class="aspect-square rounded-lg overflow-hidden border border-white/20 cursor-pointer group relative">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" 
+                                 alt="Kódolás">
+                             <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                                <span class="text-white text-xs font-bold"><i class="fa-solid fa-code"></i> Work</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Zenelejátszó -->
+                <div class="mt-auto bg-gradient-to-r from-red-900/80 to-green-900/80 rounded-xl p-4 border border-white/20 shadow-inner">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-black/30 rounded-full flex items-center justify-center text-yellow-400 animate-spin-slow">
+                                <i class="fa-solid fa-compact-disc text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-white">Jingle Bells (Lofi Remix)</div>
+                                <div class="text-xs text-gray-300">Christmas Vibes</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-400 font-mono" id="time-display">0:00 / 2:45</div>
+                    </div>
+
+                    <!-- Audio control -->
+                    <div class="flex items-center gap-4">
+                        <button id="play-btn" class="w-10 h-10 rounded-full bg-yellow-500 hover:bg-yellow-400 text-black flex items-center justify-center transition-colors shadow-lg">
+                            <i class="fa-solid fa-play pl-1"></i>
+                        </button>
+                        
+                        <div class="flex-1 flex items-center gap-2">
+                            <i class="fa-solid fa-volume-low text-xs text-gray-400"></i>
+                            <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5" class="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer">
+                            <i class="fa-solid fa-volume-high text-xs text-gray-400"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Rejtett Audio elem -->
+                    <audio id="audio-player" loop>
+                        <source src="https://cdn.pixabay.com/download/audio/2022/11/22/audio_febc508520.mp3?filename=jingle-bells-hip-hop-126340.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-2 w-full text-center text-white/40 text-xs z-10">
+        <p>&copy; 2025 My Christmas Profile. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript Logika -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('audio-player');
+            const playBtn = document.getElementById('play-btn');
+            const playIcon = playBtn.querySelector('i');
+            const volumeSlider = document.getElementById('volume-slider');
+            const timeDisplay = document.getElementById('time-display');
+            const discIcon = document.querySelector('.fa-compact-disc').parentElement;
+
+            // Alapértelmezett hangerő
+            audio.volume = 0.5;
+            discIcon.style.animationPlayState = 'paused';
+
+            // Play/Pause funkció
+            playBtn.addEventListener('click', () => {
+                if (audio.paused) {
+                    audio.play();
+                    playIcon.classList.remove('fa-play', 'pl-1');
+                    playIcon.classList.add('fa-pause');
+                    playBtn.classList.replace('bg-yellow-500', 'bg-red-500');
+                    playBtn.classList.replace('hover:bg-yellow-400', 'hover:bg-red-400');
+                    discIcon.style.animationPlayState = 'running';
+                } else {
+                    audio.pause();
+                    playIcon.classList.add('fa-play', 'pl-1');
+                    playIcon.classList.remove('fa-pause');
+                    playBtn.classList.replace('bg-red-500', 'bg-yellow-500');
+                    playBtn.classList.replace('hover:bg-red-400', 'hover:bg-yellow-400');
+                    discIcon.style.animationPlayState = 'paused';
+                }
+            });
+
+            // Hangerő szabályozás
+            volumeSlider.addEventListener('input', (e) => {
+                audio.volume = e.target.value;
+            });
+
+            // Idő kijelzés frissítése
+            audio.addEventListener('timeupdate', () => {
+                const current = formatTime(audio.currentTime);
+                const duration = audio.duration ? formatTime(audio.duration) : "2:45";
+                timeDisplay.textContent = `${current} / ${duration}`;
+            });
+
+            function formatTime(seconds) {
+                const min = Math.floor(seconds / 60);
+                const sec = Math.floor(seconds % 60);
+                return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+            }
+
+            // Lemez forgás animáció hozzáadása CSS-be dinamikusan
+            const styleSheet = document.createElement("style");
+            styleSheet.innerText = `
+                @keyframes spin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+                .animate-spin-slow {
+                    animation: spin 4s linear infinite;
+                }
+                .animate-fade-in-up {
+                    animation: fadeInUp 1s ease-out;
+                }
+                @keyframes fadeInUp {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `;
+            document.head.appendChild(styleSheet);
+        });
+    </script>
+</body>
+</html>
