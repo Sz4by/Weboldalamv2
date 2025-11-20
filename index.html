@@ -3,40 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile & Custom API</title>
+    <title>My Christmas Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root { --gold: #FFD700; --holiday-red: #c41e3a; }
         body { font-family: 'Nunito', sans-serif; overflow-x: hidden; }
         .festive-font { font-family: 'Mountains of Christmas', cursive; }
-        /* Glassmorphism & Animációk */
-        .glass-card { background: rgba(20, 20, 30, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); }
-        .snowflake { position: fixed; top: -10px; color: #fff; z-index: -1; animation: fall 10s linear infinite; }
+
+        /* Hóesés animáció */
+        .snowflake { position: fixed; top: -10px; color: #fff; z-index: -1; animation: fall linear infinite; }
         @keyframes fall { to { top: 100%; } }
+
+        /* Glassmorphism */
+        .glass-card { background: rgba(20, 20, 30, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); }
+
+        /* Státusz színek - UGYANAZOK */
         .status-online { background-color: #3ba55c; box-shadow: 0 0 8px #3ba55c; }
         .status-idle { background-color: #faa61a; box-shadow: 0 0 8px #faa61a; }
         .status-dnd { background-color: #ed4245; box-shadow: 0 0 8px #ed4245; }
         .status-offline { background-color: #747f8d; }
-        /* Range Slider */
+
+        /* Slider */
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: var(--gold); margin-top: -6px; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255,255,255,0.3); }
     </style>
 </head>
 <body class="text-white min-h-screen flex items-center justify-center p-4 relative">
 
-    <!-- Háttér -->
+    <!-- UGYANAZ A VIDEÓ HÁTTÉR -->
     <div class="fixed top-0 left-0 w-full h-full -z-20">
         <video autoplay muted loop playsinline class="absolute min-w-full min-h-full object-cover filter blur-sm brightness-50 transform scale-105">
             <source src="https://videos.pexels.com/video-files/856957/856957-hd_1920_1080_25fps.mp4" type="video/mp4">
         </video>
     </div>
 
-    <!-- Hóesés (CSS generált) -->
+    <!-- Hóesés Generálás -->
     <div id="snow-container"></div>
     <script>
-        for(let i=0; i<15; i++) {
+        for(let i=0; i<20; i++) {
             let snow = document.createElement('div');
             snow.className = 'snowflake';
             snow.innerText = Math.random() > 0.5 ? '❅' : '❆';
@@ -48,9 +55,11 @@
     </script>
 
     <main class="glass-card w-full max-w-4xl rounded-3xl overflow-hidden relative z-10 animate-fade-in-up">
+        <!-- Díszek -->
+        <div class="absolute top-0 right-0 p-4 text-yellow-400 opacity-80"><i class="fa-solid fa-holly-berry text-4xl transform rotate-12"></i></div>
+        
         <div class="grid md:grid-cols-12 gap-0">
-            
-            <!-- Bal Sáv -->
+            <!-- Profil Infó -->
             <div class="md:col-span-5 bg-black/20 p-8 text-center flex flex-col items-center justify-center border-r border-white/10">
                 <div class="relative group">
                     <div class="w-40 h-40 rounded-full border-4 border-red-600 p-1 shadow-2xl overflow-hidden">
@@ -68,17 +77,17 @@
                 </div>
             </div>
 
-            <!-- Jobb Sáv -->
+            <!-- Tartalom -->
             <div class="md:col-span-7 p-8 flex flex-col gap-6">
                 
-                <!-- SAJÁT API DISCORD KÁRTYA -->
+                <!-- DISCORD KÁRTYA (API-ról töltődik) -->
                 <div id="discord-card" class="bg-[#2f3136] rounded-lg p-4 border border-gray-700 shadow-lg relative overflow-hidden">
-                    <!-- Loading -->
+                    <!-- Betöltés -->
                     <div id="loading-msg" class="flex items-center justify-center h-20 text-gray-400 gap-2">
-                        <i class="fa-solid fa-circle-notch fa-spin"></i> Bot adatainak lekérése...
+                        <i class="fa-solid fa-circle-notch fa-spin"></i> Kapcsolódás a saját bothoz...
                     </div>
 
-                    <!-- Content (Hidden default) -->
+                    <!-- Adatok -->
                     <div id="discord-content" class="hidden">
                         <div class="absolute top-0 left-0 w-full h-1 bg-[#202225]"></div>
                         <h3 class="text-[#b9bbbe] text-xs font-bold uppercase mb-3 tracking-widest"><i class="fa-brands fa-discord mr-2"></i>Live Status</h3>
@@ -121,7 +130,7 @@
                     </div>
                 </div>
 
-                <!-- Zene -->
+                <!-- Zenelejátszó -->
                 <div class="mt-auto bg-gradient-to-r from-red-900/80 to-green-900/80 rounded-xl p-4 border border-white/20 shadow-inner">
                     <div class="flex items-center gap-4">
                         <button id="play-btn" class="w-10 h-10 rounded-full bg-yellow-500 hover:bg-yellow-400 text-black flex items-center justify-center transition-colors shadow-lg"><i class="fa-solid fa-play pl-1"></i></button>
@@ -132,51 +141,45 @@
                     </div>
                     <audio id="audio" loop><source src="https://cdn.pixabay.com/download/audio/2022/11/22/audio_febc508520.mp3" type="audio/mpeg"></audio>
                 </div>
-
             </div>
         </div>
     </main>
-    <footer class="fixed bottom-2 w-full text-center text-white/40 text-xs z-10"><p>&copy; 2025 Custom API Profile</p></footer>
+    <footer class="fixed bottom-2 w-full text-center text-white/40 text-xs z-10"><p>&copy; 2025 My Custom Profile</p></footer>
 
-    <!-- JAVASCRIPT - ITT KAPCSOLÓDIK A BOTHOZ -->
+    <!-- JAVASCRIPT -->
     <script>
         // =================================================
-        // FONTOS: IDE MÁSOLD BE A RENDERES LINKEDET!
-        // A végén maradjon ott a /api/status rész!
-        // Példa: 'https://bot-neve.onrender.com/api/status'
+        // CSAK EZT KELL BEÁLLÍTANOD A RENDER LINKEDRE!
         // =================================================
-        const API_URL = 'https://botv2-61qy.onrender.com/api/status'; 
+        const API_URL = 'https://IDE_ÍRD_A_BOTOD_LINKJÉT.onrender.com/api/status'; 
         // -------------------------------------------------
 
         async function updateStatus() {
             try {
-                // Itt hívjuk meg a TE saját botodat
                 const response = await fetch(API_URL);
                 const data = await response.json();
 
                 if(!data.success && data.status !== 'offline') return;
 
-                // HTML elemek
                 document.getElementById('loading-msg').style.display = 'none';
                 document.getElementById('discord-content').classList.remove('hidden');
                 
-                // Adatok beírása
+                // Képek és nevek frissítése
                 document.getElementById('d-username').textContent = data.username;
                 document.getElementById('d-avatar').src = data.avatar;
 
-                // Státusz szín (online/idle/dnd/offline)
+                // Státusz szín frissítése
                 const status = data.status || 'offline';
                 const indicator = document.getElementById('d-status');
                 indicator.className = `absolute bottom-0 right-0 w-5 h-5 rounded-full border-4 border-[#2f3136] status-${status}`;
 
-                // Tevékenység (Játék vagy Spotify)
+                // Tevékenység frissítése (Ugyanúgy, mint régen)
                 const activityDiv = document.getElementById('d-activity');
                 activityDiv.innerHTML = '';
 
                 if (data.spotify) {
                     activityDiv.innerHTML = `<i class="fa-brands fa-spotify text-green-400"></i> <span>Zene: <strong>${data.spotify.details}</strong></span>`;
                 } else {
-                    // Keresünk játékot (type 0)
                     const game = data.activities ? data.activities.find(a => a.type === 0) : null;
                     if (game) {
                         activityDiv.innerHTML = `<i class="fa-solid fa-gamepad text-purple-400"></i> <span>Játék: <strong>${game.name}</strong></span>`;
@@ -186,7 +189,7 @@
                     }
                 }
 
-                // Custom Status (Üzenet)
+                // Custom Status frissítése
                 const custom = data.activities ? data.activities.find(a => a.type === 4) : null;
                 const customBox = document.getElementById('d-custom-box');
                 if (custom && (custom.state || custom.emoji)) {
@@ -198,15 +201,15 @@
                 }
 
             } catch (err) {
-                console.log("Várakozás a botra...", err);
+                console.log("Várakozás az adatokra...", err);
             }
         }
 
-        // Frissítés 10 másodpercenként
+        // Automatikus frissítés
         updateStatus();
         setInterval(updateStatus, 10000);
 
-        // Zenelejátszó logika
+        // Zenelejátszó
         const audio = document.getElementById('audio');
         const playBtn = document.getElementById('play-btn');
         playBtn.addEventListener('click', () => {
